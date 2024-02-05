@@ -163,7 +163,7 @@
       "arg",
       "val"
     ],
-    "description": "Finds the row with the maximum val. Calculates the arg expression at that row.",
+    "description": "Finds the row with the maximum val. Calculates the non-NULL arg expression at that row.",
     "example": "arg_max(A,B)",
     "type": "aggregate_function_set",
     "aliases": [
@@ -174,18 +174,42 @@
     "result": null
   },
   {
+    "name": "arg_max_null",
+    "parameters": [
+      "arg",
+      "val"
+    ],
+    "description": "Finds the row with the maximum val. Calculates the arg expression at that row.",
+    "example": "arg_max_null(A,B)",
+    "type": "aggregate_function_set",
+    "category": "distributive",
+    "result": null
+  },
+  {
     "name": "arg_min",
     "parameters": [
       "arg",
       "val"
     ],
-    "description": "Finds the row with the minimum val. Calculates the arg expression at that row.",
+    "description": "Finds the row with the minimum val. Calculates the non-NULL arg expression at that row.",
     "example": "arg_min(A,B)",
     "type": "aggregate_function_set",
     "aliases": [
       "argmin",
       "min_by"
     ],
+    "category": "distributive",
+    "result": null
+  },
+  {
+    "name": "arg_min_null",
+    "parameters": [
+      "arg",
+      "val"
+    ],
+    "description": "Finds the row with the minimum val. Calculates the arg expression at that row.",
+    "example": "arg_min_null(A,B)",
+    "type": "aggregate_function_set",
     "category": "distributive",
     "result": null
   },
@@ -476,7 +500,7 @@
       "ceiling"
     ],
     "category": "math",
-    "result": 18.0
+    "result": 18
   },
   {
     "name": "century",
@@ -556,6 +580,17 @@
     "example": "(SUM(x*y) - SUM(x) * SUM(y) / COUNT(*)) / (COUNT(*) - 1)",
     "type": "aggregate_function",
     "category": "algebraic",
+    "result": null
+  },
+  {
+    "name": "create_sort_key",
+    "parameters": [
+      "parameters..."
+    ],
+    "description": "Constructs a binary-comparable sort key based on a set of input parameters and sort qualifiers",
+    "example": "create_sort_key('A', 'DESC')",
+    "type": "scalar_function",
+    "category": "blob",
     "result": null
   },
   {
@@ -983,7 +1018,7 @@
     "example": "floor(17.4)",
     "type": "scalar_function_set",
     "category": "math",
-    "result": 17.0
+    "result": 17
   },
   {
     "name": "format",
@@ -1343,6 +1378,17 @@
       "x"
     ],
     "description": "Returns the excess kurtosis (Fisher\u2019s definition) of all input values, with a bias correction according to the sample size",
+    "example": "",
+    "type": "aggregate_function",
+    "category": "distributive",
+    "result": null
+  },
+  {
+    "name": "kurtosis_pop",
+    "parameters": [
+      "x"
+    ],
+    "description": "Returns the excess kurtosis (Fisher\u2019s definition) of all input values, without bias correction",
     "example": "",
     "type": "aggregate_function",
     "category": "distributive",
@@ -2048,7 +2094,60 @@
     "type": "scalar_function_set",
     "struct": "NextAfterFun",
     "category": "math",
-    "result": 1.0000001192092896
+    "result": 1.0000001
+  },
+  {
+    "name": "parse_dirname",
+    "parameters": [
+      "string",
+      "separator"
+    ],
+    "description": "Returns the top-level directory name. separator options: system, both_slash (default), forward_slash, backslash",
+    "example": "parse_dirname('path/to/file.csv', 'system')",
+    "type": "scalar_function_set",
+    "struct": "ParseDirnameFun",
+    "category": "string",
+    "result": "path"
+  },
+  {
+    "name": "parse_dirpath",
+    "parameters": [
+      "string",
+      "separator"
+    ],
+    "description": "Returns the head of the path similarly to Python's os.path.dirname. separator options: system, both_slash (default), forward_slash, backslash",
+    "example": "parse_dirpath('path/to/file.csv', 'system')",
+    "type": "scalar_function_set",
+    "struct": "ParseDirpathFun",
+    "category": "string",
+    "result": "path/to"
+  },
+  {
+    "name": "parse_filename",
+    "parameters": [
+      "string",
+      "trim_extension",
+      "separator"
+    ],
+    "description": "Returns the last component of the path similarly to Python's os.path.basename. If trim_extension is true, the file extension will be removed (it defaults to false). separator options: system, both_slash (default), forward_slash, backslash",
+    "example": "parse_filename('path/to/file.csv', true, 'forward_slash')",
+    "type": "scalar_function_set",
+    "struct": "ParseFilenameFun",
+    "category": "string",
+    "result": "file"
+  },
+  {
+    "name": "parse_path",
+    "parameters": [
+      "string",
+      "separator"
+    ],
+    "description": "Returns a list of the components (directories and filename) in the path similarly to Python's pathlib.PurePath::parts. separator options: system, both_slash (default), forward_slash, backslash",
+    "example": "parse_path('path/to/file.csv', 'system')",
+    "type": "scalar_function_set",
+    "struct": "ParsePathFun",
+    "category": "string",
+    "result": "[path, to, file.csv]"
   },
   {
     "name": "pi",
@@ -2931,7 +3030,7 @@
     "example": "trunc(17.4)",
     "type": "scalar_function_set",
     "category": "math",
-    "result": 17.0
+    "result": 17
   },
   {
     "struct": "TryStrpTimeFun",
@@ -2954,7 +3053,7 @@
     "struct": "CurrentTransactionIdFun",
     "type": "scalar_function",
     "category": "generic",
-    "result": 56
+    "result": 58
   },
   {
     "name": "typeof",
@@ -3100,7 +3199,7 @@
     "example": "version()",
     "type": "scalar_function",
     "category": "generic",
-    "result": "v0.9.3-dev2533"
+    "result": "v0.9.3-dev3719"
   },
   {
     "name": "week",
