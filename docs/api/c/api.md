@@ -390,6 +390,7 @@ title: C API - Complete API
 ### `Streaming Result Interface`
 
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">duckdb_data_chunk</span> <a href="#duckdb_stream_fetch_chunk"><span class="nf">duckdb_stream_fetch_chunk</span></a>(<span class="kt">duckdb_result</span> <span class="nv">result</span>);
+<span class="kt">duckdb_data_chunk</span> <a href="#duckdb_fetch_chunk"><span class="nf">duckdb_fetch_chunk</span></a>(<span class="kt">duckdb_result</span> <span class="nv">result</span>);
 </code></pre></div></div>
 
 ### `duckdb_open`
@@ -981,6 +982,8 @@ The number of columns present in the result object.
 ### `duckdb_row_count`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Returns the number of rows present in the result object.
 
 #### Syntax
@@ -1148,6 +1151,8 @@ The error of the result.
 ### `duckdb_result_get_chunk`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Fetches a data chunk from the duckdb_result. This function should be called repeatedly until the result is exhausted.
 
 The result must be destroyed with `duckdb_destroy_data_chunk`.
@@ -1188,6 +1193,8 @@ The resulting data chunk. Returns `NULL` if the chunk index is out of bounds.
 ### `duckdb_result_is_streaming`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Checks if the type of the internal result is StreamQueryResult.
 
 #### Syntax
@@ -1214,6 +1221,8 @@ Whether or not the result object is of the type StreamQueryResult
 ### `duckdb_result_chunk_count`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Returns the number of data chunks present in the result.
 
 #### Syntax
@@ -1266,6 +1275,7 @@ The return_type
 ### `duckdb_value_boolean`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1290,6 +1300,7 @@ The boolean value at the specified location, or false if the value cannot be con
 ### `duckdb_value_int8`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1314,6 +1325,7 @@ The int8_t value at the specified location, or 0 if the value cannot be converte
 ### `duckdb_value_int16`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1338,6 +1350,7 @@ The int16_t value at the specified location, or 0 if the value cannot be convert
 ### `duckdb_value_int32`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1362,6 +1375,7 @@ The int32_t value at the specified location, or 0 if the value cannot be convert
 ### `duckdb_value_int64`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1386,6 +1400,7 @@ The int64_t value at the specified location, or 0 if the value cannot be convert
 ### `duckdb_value_hugeint`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1410,6 +1425,7 @@ The duckdb_hugeint value at the specified location, or 0 if the value cannot be 
 ### `duckdb_value_uhugeint`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1434,6 +1450,7 @@ The duckdb_uhugeint value at the specified location, or 0 if the value cannot be
 ### `duckdb_value_decimal`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1458,6 +1475,7 @@ The duckdb_decimal value at the specified location, or 0 if the value cannot be 
 ### `duckdb_value_uint8`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1482,6 +1500,7 @@ The uint8_t value at the specified location, or 0 if the value cannot be convert
 ### `duckdb_value_uint16`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1506,6 +1525,7 @@ The uint16_t value at the specified location, or 0 if the value cannot be conver
 ### `duckdb_value_uint32`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1530,6 +1550,7 @@ The uint32_t value at the specified location, or 0 if the value cannot be conver
 ### `duckdb_value_uint64`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1554,6 +1575,7 @@ The uint64_t value at the specified location, or 0 if the value cannot be conver
 ### `duckdb_value_float`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1578,6 +1600,7 @@ The float value at the specified location, or 0 if the value cannot be converted
 ### `duckdb_value_double`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1602,6 +1625,7 @@ The double value at the specified location, or 0 if the value cannot be converte
 ### `duckdb_value_date`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1626,6 +1650,7 @@ The duckdb_date value at the specified location, or 0 if the value cannot be con
 ### `duckdb_value_time`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1650,6 +1675,7 @@ The duckdb_time value at the specified location, or 0 if the value cannot be con
 ### `duckdb_value_timestamp`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1674,6 +1700,7 @@ The duckdb_timestamp value at the specified location, or 0 if the value cannot b
 ### `duckdb_value_interval`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1726,6 +1753,7 @@ converted. The result must be freed with `duckdb_free`.
 ### `duckdb_value_string`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1814,6 +1842,7 @@ The result must NOT be freed.
 ### `duckdb_value_blob`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -1839,6 +1868,7 @@ value cannot be converted. The resulting field "blob.data" must be freed with `d
 ### `duckdb_value_is_null`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
 
 #### Syntax
 
@@ -3047,6 +3077,8 @@ The query result.
 ### `duckdb_execute_prepared_streaming`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Executes the prepared statement with the given bound parameters, and returns an optionally-streaming query result.
 To determine if the resulting query was in fact streamed, use `duckdb_result_is_streaming`
 
@@ -3248,6 +3280,8 @@ The pending query result.
 ### `duckdb_pending_prepared_streaming`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Executes the prepared statement with the given bound parameters, and returns a pending result.
 This pending result will create a streaming duckdb_result when executed.
 The pending result represents an intermediate structure for a query that is not yet fully executed.
@@ -6834,6 +6868,8 @@ The return state.
 ### `duckdb_query_arrow`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Executes a SQL query within a connection and stores the full (materialized) result in an arrow structure.
 If the query fails to execute, DuckDBError is returned and the error message can be retrieved by calling
 `duckdb_query_arrow_error`.
@@ -6873,6 +6909,8 @@ The query result.
 ### `duckdb_query_arrow_schema`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Fetch the internal arrow schema from the arrow result. Remember to call release on the respective
 ArrowSchema object.
 
@@ -6904,6 +6942,8 @@ The output schema.
 ### `duckdb_prepared_arrow_schema`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Fetch the internal arrow schema from the prepared statement. Remember to call release on the respective
 ArrowSchema object.
 
@@ -6935,6 +6975,8 @@ The output schema.
 ### `duckdb_result_arrow_array`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Convert a data chunk into an arrow struct array. Remember to call release on the respective
 ArrowArray object.
 
@@ -6967,6 +7009,8 @@ The output array.
 ### `duckdb_query_arrow_array`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Fetch an internal arrow struct array from the arrow result. Remember to call release on the respective
 ArrowArray object.
 
@@ -7001,6 +7045,8 @@ The output array.
 ### `duckdb_arrow_column_count`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Returns the number of columns present in the arrow result object.
 
 #### Syntax
@@ -7027,6 +7073,8 @@ The number of columns present in the result object.
 ### `duckdb_arrow_row_count`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Returns the number of rows present in the arrow result object.
 
 #### Syntax
@@ -7053,6 +7101,8 @@ The number of rows present in the result object.
 ### `duckdb_arrow_rows_changed`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Returns the number of rows changed by the query stored in the arrow result. This is relevant only for
 INSERT/UPDATE/DELETE queries. For other queries the rows_changed will be 0.
 
@@ -7080,6 +7130,8 @@ The number of rows changed.
 ### `duckdb_query_arrow_error`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Returns the error message contained within the result. The error is only set if `duckdb_query_arrow` returns
 `DuckDBError`.
 
@@ -7109,6 +7161,8 @@ The error of the result.
 ### `duckdb_destroy_arrow`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Closes the result and de-allocates all memory allocated for the arrow result.
 
 #### Syntax
@@ -7132,6 +7186,8 @@ The result to destroy.
 ### `duckdb_destroy_arrow_stream`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Releases the arrow array stream and de-allocates its memory.
 
 #### Syntax
@@ -7155,6 +7211,8 @@ The arrow array stream to destroy.
 ### `duckdb_execute_prepared_arrow`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Executes the prepared statement with the given bound parameters, and returns an arrow query result.
 Note that after running `duckdb_execute_prepared_arrow`, `duckdb_destroy_arrow` must be called on the result object.
 
@@ -7186,6 +7244,8 @@ The query result.
 ### `duckdb_arrow_scan`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Scans the Arrow stream and creates a view with the given name.
 
 #### Syntax
@@ -7220,6 +7280,8 @@ Arrow stream wrapper.
 ### `duckdb_arrow_array_scan`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Scans the Arrow array and creates a view with the given name.
 Note that after running `duckdb_arrow_array_scan`, `duckdb_destroy_arrow_stream` must be called on the out stream.
 
@@ -7480,6 +7542,8 @@ The connection on which to check
 ### `duckdb_stream_fetch_chunk`
 
 ---
+**DEPRECATION NOTICE**: This method is scheduled for removal in a future release.
+
 Fetches a data chunk from the (streaming) duckdb_result. This function should be called repeatedly until the result is
 exhausted.
 
@@ -7496,6 +7560,36 @@ It is not known beforehand how many chunks will be returned by this result.
 
 ---
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">duckdb_data_chunk</span> <span class="nv">duckdb_stream_fetch_chunk</span>(<span class="nv">
+</span>  <span class="kt">duckdb_result</span> <span class="nv">result
+</span>);
+</code></pre></div></div>
+
+#### Parameters
+
+---
+* `result`
+
+The result object to fetch the data chunk from.
+* `returns`
+
+The resulting data chunk. Returns `NULL` if the result has an error.
+
+<br>
+
+
+### `duckdb_fetch_chunk`
+
+---
+Fetches a data chunk from a duckdb_result. This function should be called repeatedly until the result is exhausted.
+
+The result must be destroyed with `duckdb_destroy_data_chunk`.
+
+It is not known beforehand how many chunks will be returned by this result.
+
+#### Syntax
+
+---
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">duckdb_data_chunk</span> <span class="nv">duckdb_fetch_chunk</span>(<span class="nv">
 </span>  <span class="kt">duckdb_result</span> <span class="nv">result
 </span>);
 </code></pre></div></div>
