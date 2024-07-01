@@ -272,11 +272,14 @@ title: C API - Complete API
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">duckdb_scalar_function</span> <a href="#duckdb_create_scalar_function"><span class="nf">duckdb_create_scalar_function</span></a>();
 <span class="kt">void</span> <a href="#duckdb_destroy_scalar_function"><span class="nf">duckdb_destroy_scalar_function</span></a>(<span class="nv">duckdb_scalar_function</span> *<span class="nv">scalar_function</span>);
 <span class="kt">void</span> <a href="#duckdb_scalar_function_set_name"><span class="nf">duckdb_scalar_function_set_name</span></a>(<span class="nv">duckdb_scalar_function</span> <span class="nv">scalar_function</span>, <span class="kt">const</span> <span class="kt">char</span> *<span class="nv">name</span>);
+<span class="kt">void</span> <a href="#duckdb_scalar_function_set_varargs"><span class="nf">duckdb_scalar_function_set_varargs</span></a>(<span class="nv">duckdb_scalar_function</span> <span class="nv">scalar_function</span>, <span class="kt">duckdb_logical_type</span> <span class="nv">type</span>);
 <span class="kt">void</span> <a href="#duckdb_scalar_function_add_parameter"><span class="nf">duckdb_scalar_function_add_parameter</span></a>(<span class="nv">duckdb_scalar_function</span> <span class="nv">scalar_function</span>, <span class="kt">duckdb_logical_type</span> <span class="nv">type</span>);
 <span class="kt">void</span> <a href="#duckdb_scalar_function_set_return_type"><span class="nf">duckdb_scalar_function_set_return_type</span></a>(<span class="nv">duckdb_scalar_function</span> <span class="nv">scalar_function</span>, <span class="kt">duckdb_logical_type</span> <span class="nv">type</span>);
 <span class="kt">void</span> <a href="#duckdb_scalar_function_set_extra_info"><span class="nf">duckdb_scalar_function_set_extra_info</span></a>(<span class="nv">duckdb_scalar_function</span> <span class="nv">scalar_function</span>, <span class="kt">void</span> *<span class="nv">extra_info</span>, <span class="nv">duckdb_delete_callback_t</span> <span class="nv">destroy</span>);
 <span class="kt">void</span> <a href="#duckdb_scalar_function_set_function"><span class="nf">duckdb_scalar_function_set_function</span></a>(<span class="nv">duckdb_scalar_function</span> <span class="nv">scalar_function</span>, <span class="nv">duckdb_scalar_function_t</span> <span class="nv">function</span>);
 <span class="kt">duckdb_state</span> <a href="#duckdb_register_scalar_function"><span class="nf">duckdb_register_scalar_function</span></a>(<span class="kt">duckdb_connection</span> <span class="nv">con</span>, <span class="nv">duckdb_scalar_function</span> <span class="nv">scalar_function</span>);
+<span class="kt">void</span> *<a href="#duckdb_scalar_function_get_extra_info"><span class="nf">duckdb_scalar_function_get_extra_info</span></a>(<span class="kt">duckdb_function_info</span> <span class="nv">info</span>);
+<span class="kt">void</span> <a href="#duckdb_scalar_function_set_error"><span class="nf">duckdb_scalar_function_set_error</span></a>(<span class="kt">duckdb_function_info</span> <span class="nv">info</span>, <span class="kt">const</span> <span class="kt">char</span> *<span class="nv">error</span>);
 </code></pre></div></div>
 
 ### `Table Functions`
@@ -5291,7 +5294,7 @@ The scalar function object.
 ### `duckdb_destroy_scalar_function`
 
 ---
-Destroys the given table function object.
+Destroys the given scalar function object.
 
 #### Syntax
 
@@ -5304,9 +5307,9 @@ Destroys the given table function object.
 #### Parameters
 
 ---
-* `table_function`
+* `scalar_function`
 
-The table function to destroy
+The scalar function to destroy
 
 <br>
 
@@ -5328,12 +5331,40 @@ Sets the name of the given scalar function.
 #### Parameters
 
 ---
-* `table_function`
+* `scalar_function`
 
 The scalar function
 * `name`
 
 The name of the scalar function
+
+<br>
+
+
+### `duckdb_scalar_function_set_varargs`
+
+---
+Sets the parameters of the given scalar function to varargs. Does not require adding parameters with
+duckdb_scalar_function_add_parameter.
+
+#### Syntax
+
+---
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nv">duckdb_scalar_function_set_varargs</span>(<span class="nv">
+</span>  <span class="nv">duckdb_scalar_function</span> <span class="nv">scalar_function</span>,<span class="nv">
+</span>  <span class="kt">duckdb_logical_type</span> <span class="nv">type
+</span>);
+</code></pre></div></div>
+
+#### Parameters
+
+---
+* `scalar_function`
+
+The scalar function
+* `type`
+
+The type of the arguments
 
 <br>
 
@@ -5412,7 +5443,7 @@ Assigns extra information to the scalar function that can be fetched during bind
 ---
 * `scalar_function`
 
-The table function
+The scalar function
 * `extra_info`
 
 The extra information
@@ -5426,7 +5457,7 @@ The callback that will be called to destroy the bind data (if any)
 ### `duckdb_scalar_function_set_function`
 
 ---
-Sets the main function of the table function.
+Sets the main function of the scalar function.
 
 #### Syntax
 
@@ -5440,9 +5471,9 @@ Sets the main function of the table function.
 #### Parameters
 
 ---
-* `table_function`
+* `scalar_function`
 
-The table function
+The scalar function
 * `function`
 
 The function
@@ -5480,6 +5511,59 @@ The function pointer
 * `returns`
 
 Whether or not the registration was successful.
+
+<br>
+
+
+### `duckdb_scalar_function_get_extra_info`
+
+---
+Retrieves the extra info of the function as set in `duckdb_scalar_function_set_extra_info`.
+
+#### Syntax
+
+---
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> *<span class="nv">duckdb_scalar_function_get_extra_info</span>(<span class="nv">
+</span>  <span class="kt">duckdb_function_info</span> <span class="nv">info
+</span>);
+</code></pre></div></div>
+
+#### Parameters
+
+---
+* `info`
+
+The info object
+* `returns`
+
+The extra info
+
+<br>
+
+
+### `duckdb_scalar_function_set_error`
+
+---
+Report that an error has occurred while executing the scalar function.
+
+#### Syntax
+
+---
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nv">duckdb_scalar_function_set_error</span>(<span class="nv">
+</span>  <span class="kt">duckdb_function_info</span> <span class="nv">info</span>,<span class="nv">
+</span>  <span class="kt">const</span> <span class="kt">char</span> *<span class="nv">error
+</span>);
+</code></pre></div></div>
+
+#### Parameters
+
+---
+* `info`
+
+The info object
+* `error`
+
+The error message
 
 <br>
 
