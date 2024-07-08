@@ -3308,7 +3308,7 @@
     "example": "version()",
     "type": "scalar_function",
     "category": "generic",
-    "result": "v1.0.1-dev2074"
+    "result": "v1.0.1-dev2164"
   },
   {
     "name": "week",
