@@ -107,6 +107,8 @@ The data chunk to destroy.
 
 ---
 Resets a data chunk, clearing the validity masks and setting the cardinality of the data chunk to 0.
+After calling this method, you must call `duckdb_vector_get_validity` and `duckdb_vector_get_data` to obtain current
+data and validity pointers
 
 #### Syntax
 
@@ -512,6 +514,9 @@ The duckdb state. Returns DuckDBError if the vector is nullptr.
 
 ---
 Sets the total capacity of the underlying child-vector of a list.
+
+After calling this method, you must call `duckdb_vector_get_validity` and `duckdb_vector_get_data` to obtain current
+data and validity pointers
 
 #### Syntax
 

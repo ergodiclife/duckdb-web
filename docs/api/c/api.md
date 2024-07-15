@@ -338,6 +338,15 @@ title: C API - Complete API
 <span class="kt">void</span> <a href="#duckdb_replacement_scan_set_error"><span class="nf">duckdb_replacement_scan_set_error</span></a>(<span class="kt">duckdb_replacement_scan_info</span> <span class="nv">info</span>, <span class="kt">const</span> <span class="kt">char</span> *<span class="nv">error</span>);
 </code></pre></div></div>
 
+### `Profiling Info`
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">duckdb_profiling_info</span> <a href="#duckdb_get_profiling_info"><span class="nf">duckdb_get_profiling_info</span></a>(<span class="kt">duckdb_connection</span> <span class="nv">connection</span>);
+<span class="kt">const</span> <span class="kt">char</span> *<a href="#duckdb_profiling_info_get_value"><span class="nf">duckdb_profiling_info_get_value</span></a>(<span class="nv">duckdb_profiling_info</span> <span class="nv">info</span>, <span class="kt">const</span> <span class="kt">char</span> *<span class="nv">key</span>);
+<span class="kt">idx_t</span> <a href="#duckdb_profiling_info_get_child_count"><span class="nf">duckdb_profiling_info_get_child_count</span></a>(<span class="nv">duckdb_profiling_info</span> <span class="nv">info</span>);
+<span class="nv">duckdb_profiling_info</span> <a href="#duckdb_profiling_info_get_child"><span class="nf">duckdb_profiling_info_get_child</span></a>(<span class="nv">duckdb_profiling_info</span> <span class="nv">info</span>, <span class="kt">idx_t</span> <span class="nv">index</span>);
+<span class="kt">const</span> <span class="kt">char</span> *<a href="#duckdb_profiling_info_get_query"><span class="nf">duckdb_profiling_info_get_query</span></a>(<span class="nv">duckdb_profiling_info</span> <span class="nv">info</span>);
+</code></pre></div></div>
+
 ### `Appender`
 
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">duckdb_state</span> <a href="#duckdb_appender_create"><span class="nf">duckdb_appender_create</span></a>(<span class="kt">duckdb_connection</span> <span class="nv">connection</span>, <span class="kt">const</span> <span class="kt">char</span> *<span class="nv">schema</span>, <span class="kt">const</span> <span class="kt">char</span> *<span class="nv">table</span>, <span class="kt">duckdb_appender</span> *<span class="nv">out_appender</span>);
@@ -4652,6 +4661,8 @@ The data chunk to destroy.
 
 ---
 Resets a data chunk, clearing the validity masks and setting the cardinality of the data chunk to 0.
+After calling this method, you must call `duckdb_vector_get_validity` and `duckdb_vector_get_data` to obtain current
+data and validity pointers
 
 #### Syntax
 
@@ -5057,6 +5068,9 @@ The duckdb state. Returns DuckDBError if the vector is nullptr.
 
 ---
 Sets the total capacity of the underlying child-vector of a list.
+
+After calling this method, you must call `duckdb_vector_get_validity` and `duckdb_vector_get_data` to obtain current
+data and validity pointers
 
 #### Syntax
 
@@ -6586,6 +6600,102 @@ The info object
 
 The error message
 
+<br>
+
+
+### `duckdb_get_profiling_info`
+
+---
+Returns the root node from the profiling information. Returns NULL if profiling is not enabled
+
+* @param connection A connection object
+* @return A profiling information object
+
+#### Syntax
+
+---
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">duckdb_profiling_info</span> <span class="nv">duckdb_get_profiling_info</span>(<span class="nv">
+</span>  <span class="kt">duckdb_connection</span> <span class="nv">connection
+</span>);
+</code></pre></div></div>
+<br>
+
+
+### `duckdb_profiling_info_get_value`
+
+---
+Returns the value of the setting key of the current profiling info node. If the setting does not exist or is not
+enabled, nullptr is returned.
+
+* @param info A profiling information object
+* @param key The name of the metric setting to return the value for
+* @return The value of the metric setting. Must be freed with `duckdb_free`.
+
+#### Syntax
+
+---
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">const</span> <span class="kt">char</span> *<span class="nv">duckdb_profiling_info_get_value</span>(<span class="nv">
+</span>  <span class="nv">duckdb_profiling_info</span> <span class="nv">info</span>,<span class="nv">
+</span>  <span class="kt">const</span> <span class="kt">char</span> *<span class="nv">key
+</span>);
+</code></pre></div></div>
+<br>
+
+
+### `duckdb_profiling_info_get_child_count`
+
+---
+Returns the number of children in the current profiling info node.
+
+* @param info A profiling information object
+* @return The number of children in the current node
+
+#### Syntax
+
+---
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">idx_t</span> <span class="nv">duckdb_profiling_info_get_child_count</span>(<span class="nv">
+</span>  <span class="nv">duckdb_profiling_info</span> <span class="nv">info
+</span>);
+</code></pre></div></div>
+<br>
+
+
+### `duckdb_profiling_info_get_child`
+
+---
+Returns the child node at the specified index.
+
+* @param info A profiling information object
+* @param index The index of the child node to return
+* @return The child node at the specified index
+
+#### Syntax
+
+---
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">duckdb_profiling_info</span> <span class="nv">duckdb_profiling_info_get_child</span>(<span class="nv">
+</span>  <span class="nv">duckdb_profiling_info</span> <span class="nv">info</span>,<span class="nv">
+</span>  <span class="kt">idx_t</span> <span class="nv">index
+</span>);
+</code></pre></div></div>
+<br>
+
+
+### `duckdb_profiling_info_get_query`
+
+---
+Returns the query of the current profiling info node, if the node the query root node.
+
+* @param info A profiling information object
+* @return The query of the current node. Returns a nullptr if the node is not a Query Node. The result must be freed
+with `duckdb_free`.
+
+#### Syntax
+
+---
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">const</span> <span class="kt">char</span> *<span class="nv">duckdb_profiling_info_get_query</span>(<span class="nv">
+</span>  <span class="nv">duckdb_profiling_info</span> <span class="nv">info
+</span>);
+</code></pre></div></div>
 <br>
 
 

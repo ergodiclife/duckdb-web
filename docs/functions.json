@@ -1991,6 +1991,9 @@
     "description": "Returns the maximum value present in arg.",
     "example": "max(A)",
     "type": "aggregate_function_set",
+    "extra_functions": [
+      "static AggregateFunction GetFunction();"
+    ],
     "category": "distributive",
     "result": null
   },
@@ -2096,6 +2099,9 @@
     "description": "Returns the minimum value present in arg.",
     "example": "min(A)",
     "type": "aggregate_function_set",
+    "extra_functions": [
+      "static AggregateFunction GetFunction();"
+    ],
     "category": "distributive",
     "result": null
   },
@@ -3253,6 +3259,28 @@
     "result": "[4, 5, 6]"
   },
   {
+    "name": "url_decode",
+    "parameters": [
+      "input"
+    ],
+    "description": "Unescapes the URL encoded input.",
+    "example": "url_decode('this%20string%20is%2BFencoded')",
+    "type": "scalar_function",
+    "category": "string",
+    "result": "this string is+Fencoded"
+  },
+  {
+    "name": "url_encode",
+    "parameters": [
+      "input"
+    ],
+    "description": "Escapes the input string by encoding it so that it can be included in a URL query parameter.",
+    "example": "url_encode('this string has/ special+ characters>')",
+    "type": "scalar_function",
+    "category": "string",
+    "result": "this%20string%20has%2F%20special%2B%20characters%3E"
+  },
+  {
     "name": "uuid",
     "description": "Returns a random UUID similar to this: eeccb8c5-9943-b2bb-bb5e-222f4e14b687",
     "example": "uuid()",
@@ -3308,7 +3336,7 @@
     "example": "version()",
     "type": "scalar_function",
     "category": "generic",
-    "result": "v1.0.1-dev2164"
+    "result": "v1.0.1-dev2738"
   },
   {
     "name": "week",
