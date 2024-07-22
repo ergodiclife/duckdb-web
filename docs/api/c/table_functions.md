@@ -135,6 +135,9 @@ The name of the table function
 ---
 Adds a parameter to the table function.
 
+* @param table_function The table function.
+* @param type The parameter type. Cannot contain INVALID.
+
 #### Syntax
 
 ---
@@ -143,17 +146,6 @@ Adds a parameter to the table function.
 </span>  <span class="kt">duckdb_logical_type</span> <span class="nv">type
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `table_function`
-
-The table function
-* `type`
-
-The type of the parameter to add.
-
 <br>
 
 
@@ -161,6 +153,10 @@ The type of the parameter to add.
 
 ---
 Adds a named parameter to the table function.
+
+* @param table_function The table function.
+* @param name The parameter name.
+* @param type The parameter type. Cannot contain INVALID.
 
 #### Syntax
 
@@ -171,20 +167,6 @@ Adds a named parameter to the table function.
 </span>  <span class="kt">duckdb_logical_type</span> <span class="nv">type
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `table_function`
-
-The table function
-* `name`
-
-The name of the parameter
-* `type`
-
-The type of the parameter to add.
-
 <br>
 
 
@@ -423,6 +405,10 @@ The extra info
 ---
 Adds a result column to the output of the table function.
 
+* @param info The table function's bind info.
+* @param name The column name.
+* @param type The logical column type.
+
 #### Syntax
 
 ---
@@ -432,20 +418,6 @@ Adds a result column to the output of the table function.
 </span>  <span class="kt">duckdb_logical_type</span> <span class="nv">type
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `info`
-
-The info object
-* `name`
-
-The name of the column
-* `type`
-
-The logical type of the column
-
 <br>
 
 

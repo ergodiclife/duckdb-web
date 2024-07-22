@@ -51,9 +51,12 @@ The primary manner of interfacing with data chunks is by obtaining the internal 
 ### `duckdb_create_data_chunk`
 
 ---
-Creates an empty DataChunk with the specified set of types.
+Creates an empty data chunk with the specified column types.
+The result must be destroyed with `duckdb_destroy_data_chunk`.
 
-Note that the result must be destroyed with `duckdb_destroy_data_chunk`.
+* @param types An array of column types. Column types can not contain ANY and INVALID types.
+* @param column_count The number of columns.
+* @return The data chunk.
 
 #### Syntax
 
@@ -63,20 +66,6 @@ Note that the result must be destroyed with `duckdb_destroy_data_chunk`.
 </span>  <span class="kt">idx_t</span> <span class="nv">column_count
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `types`
-
-An array of types of the data chunk.
-* `column_count`
-
-The number of columns.
-* `returns`
-
-The data chunk.
-
 <br>
 
 

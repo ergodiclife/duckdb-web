@@ -2004,7 +2004,7 @@
     ],
     "description": "Returns the MD5 hash of the value as a string",
     "example": "md5('123')",
-    "type": "scalar_function",
+    "type": "scalar_function_set",
     "struct": "MD5Fun",
     "category": "string",
     "result": "202cb962ac59075b964b07152d234b70"
@@ -2016,34 +2016,10 @@
     ],
     "description": "Returns the MD5 hash of the value as an INT128",
     "example": "md5_number('123')",
-    "type": "scalar_function",
+    "type": "scalar_function_set",
     "struct": "MD5NumberFun",
     "category": "string",
     "result": "149263671248412135425768892945843956768"
-  },
-  {
-    "name": "md5_number_lower",
-    "parameters": [
-      "value"
-    ],
-    "description": "Returns the MD5 hash of the value as an INT128",
-    "example": "md5_number_lower('123')",
-    "type": "scalar_function",
-    "struct": "MD5NumberLowerFun",
-    "category": "string",
-    "result": "8091599832034528150"
-  },
-  {
-    "name": "md5_number_upper",
-    "parameters": [
-      "value"
-    ],
-    "description": "Returns the MD5 hash of the value as an INT128",
-    "example": "md5_number_upper('123')",
-    "type": "scalar_function",
-    "struct": "MD5NumberUpperFun",
-    "category": "string",
-    "result": "6559309979213966368"
   },
   {
     "name": "median",
@@ -2624,13 +2600,25 @@
     "result": null
   },
   {
+    "name": "sha1",
+    "parameters": [
+      "value"
+    ],
+    "description": "Returns the SHA1 hash of the value",
+    "example": "sha1('hello')",
+    "type": "scalar_function_set",
+    "struct": "SHA1Fun",
+    "category": "string",
+    "result": "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d"
+  },
+  {
     "name": "sha256",
     "parameters": [
       "value"
     ],
     "description": "Returns the SHA256 hash of the value",
     "example": "sha256('hello')",
-    "type": "scalar_function",
+    "type": "scalar_function_set",
     "struct": "SHA256Fun",
     "category": "string",
     "result": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
@@ -3336,7 +3324,7 @@
     "example": "version()",
     "type": "scalar_function",
     "category": "generic",
-    "result": "v1.0.1-dev2738"
+    "result": "v1.0.1-dev3196"
   },
   {
     "name": "week",

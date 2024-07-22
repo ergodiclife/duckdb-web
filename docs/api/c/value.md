@@ -128,7 +128,11 @@ The value. This must be destroyed with `duckdb_destroy_value`.
 ### `duckdb_create_struct_value`
 
 ---
-Creates a struct value from a type and an array of values
+Creates a struct value from a type and an array of values. Must be destroyed with `duckdb_destroy_value`.
+
+* @param type The type of the struct.
+* @param values The values for the struct fields.
+* @return The struct value, or nullptr, if any child type is `DUCKDB_TYPE_ANY` or `DUCKDB_TYPE_INVALID`.
 
 #### Syntax
 
@@ -138,27 +142,19 @@ Creates a struct value from a type and an array of values
 </span>  <span class="kt">duckdb_value</span> *<span class="nv">values
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `type`
-
-The type of the struct
-* `values`
-
-The values for the struct fields
-* `returns`
-
-The value. This must be destroyed with `duckdb_destroy_value`.
-
 <br>
 
 
 ### `duckdb_create_list_value`
 
 ---
-Creates a list value from a type and an array of values of length `value_count`
+Creates a list value from a child (element) type and an array of values of length `value_count`.
+Must be destroyed with `duckdb_destroy_value`.
+
+* @param type The child type of the list.
+* @param values The values for the list.
+* @param value_count The number of values in the list.
+* @return The list value, or nullptr, if the child type is `DUCKDB_TYPE_ANY` or `DUCKDB_TYPE_INVALID`.
 
 #### Syntax
 
@@ -169,30 +165,19 @@ Creates a list value from a type and an array of values of length `value_count`
 </span>  <span class="kt">idx_t</span> <span class="nv">value_count
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `type`
-
-The type of the list
-* `values`
-
-The values for the list
-* `value_count`
-
-The number of values in the list
-* `returns`
-
-The value. This must be destroyed with `duckdb_destroy_value`.
-
 <br>
 
 
 ### `duckdb_create_array_value`
 
 ---
-Creates an array value from a type and an array of values of length `value_count`
+Creates an array value from a child (element) type and an array of values of length `value_count`.
+Must be destroyed with `duckdb_destroy_value`.
+
+* @param type The type of the array.
+* @param values The values for the array.
+* @param value_count The number of values in the array.
+* @return The array value, or nullptr, if the child type is `DUCKDB_TYPE_ANY` or `DUCKDB_TYPE_INVALID`.
 
 #### Syntax
 
@@ -203,23 +188,6 @@ Creates an array value from a type and an array of values of length `value_count
 </span>  <span class="kt">idx_t</span> <span class="nv">value_count
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `type`
-
-The type of the array
-* `values`
-
-The values for the array
-* `value_count`
-
-The number of values in the array
-* `returns`
-
-The value. This must be destroyed with `duckdb_destroy_value`.
-
 <br>
 
 

@@ -644,10 +644,14 @@ The converted `double` element.
 ### `duckdb_create_logical_type`
 
 ---
-Creates a `duckdb_logical_type` from a standard primitive type.
-The resulting type should be destroyed with `duckdb_destroy_logical_type`.
+Creates a `duckdb_logical_type` from a primitive type.
+The resulting logical type must be destroyed with `duckdb_destroy_logical_type`.
 
-This should not be used with `DUCKDB_TYPE_DECIMAL`.
+Returns an invalid logical type, if type is: `DUCKDB_TYPE_INVALID`, `DUCKDB_TYPE_DECIMAL`, `DUCKDB_TYPE_ENUM`,
+`DUCKDB_TYPE_LIST`, `DUCKDB_TYPE_STRUCT`, `DUCKDB_TYPE_MAP`, `DUCKDB_TYPE_ARRAY`, or `DUCKDB_TYPE_UNION`.
+
+* @param type The primitive type to create.
+* @return The logical type.
 
 #### Syntax
 
@@ -656,25 +660,17 @@ This should not be used with `DUCKDB_TYPE_DECIMAL`.
 </span>  <span class="nv">duckdb_type</span> <span class="nv">type
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `type`
-
-The primitive type to create.
-* `returns`
-
-The logical type.
-
 <br>
 
 
 ### `duckdb_logical_type_get_alias`
 
 ---
-Returns the alias of a duckdb_logical_type, if one is set, else `NULL`.
+Returns the alias of a duckdb_logical_type, if set, else `nullptr`.
 The result must be destroyed with `duckdb_free`.
+
+* @param type The logical type.
+* @return The alias or `nullptr`.
 
 #### Syntax
 
@@ -683,25 +679,17 @@ The result must be destroyed with `duckdb_free`.
 </span>  <span class="kt">duckdb_logical_type</span> <span class="nv">type
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `type`
-
-The logical type to return the alias of
-* `returns`
-
-The alias or `NULL`
-
 <br>
 
 
 ### `duckdb_create_list_type`
 
 ---
-Creates a list type from its child type.
-The resulting type should be destroyed with `duckdb_destroy_logical_type`.
+Creates a LIST type from its child type.
+The return type must be destroyed with `duckdb_destroy_logical_type`.
+
+* @param type The child type of the list.
+* @return The logical type.
 
 #### Syntax
 
@@ -710,25 +698,18 @@ The resulting type should be destroyed with `duckdb_destroy_logical_type`.
 </span>  <span class="kt">duckdb_logical_type</span> <span class="nv">type
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `type`
-
-The child type of list type to create.
-* `returns`
-
-The logical type.
-
 <br>
 
 
 ### `duckdb_create_array_type`
 
 ---
-Creates an array type from its child type.
-The resulting type should be destroyed with `duckdb_destroy_logical_type`.
+Creates an ARRAY type from its child type.
+The return type must be destroyed with `duckdb_destroy_logical_type`.
+
+* @param type The child type of the array.
+* @param array_size The number of elements in the array.
+* @return The logical type.
 
 #### Syntax
 
@@ -738,28 +719,18 @@ The resulting type should be destroyed with `duckdb_destroy_logical_type`.
 </span>  <span class="kt">idx_t</span> <span class="nv">array_size
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `type`
-
-The child type of array type to create.
-* `array_size`
-
-The number of elements in the array.
-* `returns`
-
-The logical type.
-
 <br>
 
 
 ### `duckdb_create_map_type`
 
 ---
-Creates a map type from its key type and value type.
-The resulting type should be destroyed with `duckdb_destroy_logical_type`.
+Creates a MAP type from its key type and value type.
+The return type must be destroyed with `duckdb_destroy_logical_type`.
+
+* @param key_type The map's key type.
+* @param value_type The map's value type.
+* @return The logical type.
 
 #### Syntax
 
@@ -769,25 +740,19 @@ The resulting type should be destroyed with `duckdb_destroy_logical_type`.
 </span>  <span class="kt">duckdb_logical_type</span> <span class="nv">value_type
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `type`
-
-The key type and value type of map type to create.
-* `returns`
-
-The logical type.
-
 <br>
 
 
 ### `duckdb_create_union_type`
 
 ---
-Creates a UNION type from the passed types array.
-The resulting type should be destroyed with `duckdb_destroy_logical_type`.
+Creates a UNION type from the passed arrays.
+The return type must be destroyed with `duckdb_destroy_logical_type`.
+
+* @param member_types The array of union member types.
+* @param member_names The union member names.
+* @param member_count The number of union members.
+* @param return The logical type.
 
 #### Syntax
 
@@ -798,28 +763,19 @@ The resulting type should be destroyed with `duckdb_destroy_logical_type`.
 </span>  <span class="kt">idx_t</span> <span class="nv">member_count
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `types`
-
-The array of types that the union should consist of.
-* `type_amount`
-
-The size of the types array.
-* `returns`
-
-The logical type.
-
 <br>
 
 
 ### `duckdb_create_struct_type`
 
 ---
-Creates a STRUCT type from the passed member name and type arrays.
-The resulting type should be destroyed with `duckdb_destroy_logical_type`.
+Creates a STRUCT type based on the member types and names.
+The resulting type must be destroyed with `duckdb_destroy_logical_type`.
+
+* @param member_types The array of types of the struct members.
+* @param member_names The array of names of the struct members.
+* @param member_count The number of members of the struct.
+* @return The logical type.
 
 #### Syntax
 
@@ -830,23 +786,6 @@ The resulting type should be destroyed with `duckdb_destroy_logical_type`.
 </span>  <span class="kt">idx_t</span> <span class="nv">member_count
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `member_types`
-
-The array of types that the struct should consist of.
-* `member_names`
-
-The array of names that the struct should consist of.
-* `member_count`
-
-The number of members that were specified for both arrays.
-* `returns`
-
-The logical type.
-
 <br>
 
 
@@ -887,7 +826,7 @@ The logical type.
 ### `duckdb_create_decimal_type`
 
 ---
-Creates a `duckdb_logical_type` of type decimal with the specified width and scale.
+Creates a DECIMAL type with the specified width and scale.
 The resulting type should be destroyed with `duckdb_destroy_logical_type`.
 
 #### Syntax
@@ -918,7 +857,10 @@ The logical type.
 ### `duckdb_get_type_id`
 
 ---
-Retrieves the enum type class of a `duckdb_logical_type`.
+Retrieves the enum `duckdb_type` of a `duckdb_logical_type`.
+
+* @param type The logical type.
+* @return The `duckdb_type` id.
 
 #### Syntax
 
@@ -927,17 +869,6 @@ Retrieves the enum type class of a `duckdb_logical_type`.
 </span>  <span class="kt">duckdb_logical_type</span> <span class="nv">type
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `type`
-
-The logical type object
-* `returns`
-
-The type id
-
 <br>
 
 
@@ -1106,9 +1037,11 @@ The string value of the enum type. Must be freed with `duckdb_free`.
 ### `duckdb_list_type_child_type`
 
 ---
-Retrieves the child type of the given list type.
-
+Retrieves the child type of the given LIST type. Also accepts MAP types.
 The result must be freed with `duckdb_destroy_logical_type`.
+
+* @param type The logical type, either LIST or MAP.
+* @return The child type of the LIST or MAP type.
 
 #### Syntax
 
@@ -1117,26 +1050,17 @@ The result must be freed with `duckdb_destroy_logical_type`.
 </span>  <span class="kt">duckdb_logical_type</span> <span class="nv">type
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `type`
-
-The logical type object
-* `returns`
-
-The child type of the list type. Must be destroyed with `duckdb_destroy_logical_type`.
-
 <br>
 
 
 ### `duckdb_array_type_child_type`
 
 ---
-Retrieves the child type of the given array type.
-
+Retrieves the child type of the given ARRAY type.
 The result must be freed with `duckdb_destroy_logical_type`.
+
+* @param type The logical type. Must be ARRAY.
+* @return The child type of the ARRAY type.
 
 #### Syntax
 
@@ -1145,17 +1069,6 @@ The result must be freed with `duckdb_destroy_logical_type`.
 </span>  <span class="kt">duckdb_logical_type</span> <span class="nv">type
 </span>);
 </code></pre></div></div>
-
-#### Parameters
-
----
-* `type`
-
-The logical type object
-* `returns`
-
-The child type of the array type. Must be destroyed with `duckdb_destroy_logical_type`.
-
 <br>
 
 
