@@ -114,6 +114,7 @@ a `DUCKDB_TYPE_BIGINT` column will provide unpredictable results!
 <span class="kt">void</span> *<a href="#duckdb_column_data"><span class="nf">duckdb_column_data</span></a>(<span class="kt">duckdb_result</span> *<span class="nv">result</span>, <span class="kt">idx_t</span> <span class="nv">col</span>);
 <span class="kt">bool</span> *<a href="#duckdb_nullmask_data"><span class="nf">duckdb_nullmask_data</span></a>(<span class="kt">duckdb_result</span> *<span class="nv">result</span>, <span class="kt">idx_t</span> <span class="nv">col</span>);
 <span class="kt">const</span> <span class="kt">char</span> *<a href="#duckdb_result_error"><span class="nf">duckdb_result_error</span></a>(<span class="kt">duckdb_result</span> *<span class="nv">result</span>);
+<span class="nv">duckdb_error_type</span> <a href="#duckdb_result_error_type"><span class="nf">duckdb_result_error_type</span></a>(<span class="kt">duckdb_result</span> *<span class="nv">result</span>);
 </code></pre></div></div>
 
 ### `duckdb_query`
@@ -494,6 +495,33 @@ The result object to fetch the error from.
 * `returns`
 
 The error of the result.
+
+<br>
+
+
+### `duckdb_result_error_type`
+
+---
+Returns the result error type contained within the result. The error is only set if `duckdb_query` returns
+`DuckDBError`.
+
+#### Syntax
+
+---
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">duckdb_error_type</span> <span class="nv">duckdb_result_error_type</span>(<span class="nv">
+</span>  <span class="kt">duckdb_result</span> *<span class="nv">result
+</span>);
+</code></pre></div></div>
+
+#### Parameters
+
+---
+* `result`
+
+The result object to fetch the error from.
+* `returns`
+
+The error type of the result.
 
 <br>
 
